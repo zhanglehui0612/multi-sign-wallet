@@ -31,7 +31,7 @@ contract MultiSignatureWallet is Counter, WalletInterface {
      * @param amount 
      * @param data 
      */
-    function submit(address to, uint128 amount, bytes calldata data) external  {
+    function submit(address to, uint128 amount, bytes calldata data) external admin  {
         // generate global unuqie txid
         uint128 txid = genTxID();
         Transaction memory transaction = Transaction(
