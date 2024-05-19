@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-contract Counter {
-    uint256 public number;
+import {MutexLock} from "./common/MutexLock.sol";
 
-    function setNumber(uint256 newNumber) public {
-        number = newNumber;
-    }
+abstract contract Counter is MutexLock {
 
-    function increment() public {
+    uint128 public number;
+
+    /**
+     * At same time, only allow one thread increment number, to make the number global unique
+     */
+    function genTxID() public mutexLock returns (uint128) {
         number++;
+        return number;
     }
 }
